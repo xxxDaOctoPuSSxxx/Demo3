@@ -3,7 +3,7 @@ include {
 }
 
 terraform {
-    source = "../../modules//deployment" # Terragrunt need (//) to run Terraform correctly
+    source = "../..//deployment" # Terragrunt need (//) to run Terraform correctly
 }
 
 locals {
