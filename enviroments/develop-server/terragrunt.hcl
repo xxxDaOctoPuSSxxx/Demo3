@@ -11,10 +11,10 @@ locals {
     app_port = "80"
     app_name = "apache-html"
     app_count = "2"
-    ecr_repository_url = "351279727922.dkr.ecr.eu-central-1.amazonaws.com/apache-app"
-    image_tag = "1.0"
+    ecr_repository_url = "351279727922.dkr.ecr.eu-central-1.amazonaws.com/apache-app"# I must Fix this
+    image_tag = "1.0" # I must Fix this
     repository_name = "apache-app"
-    aws_region = "eu-central-1"
+    aws_region = "eu-central-1" # I must Fix this
 }
 
 inputs = {
