@@ -3,7 +3,7 @@ resource "aws_ecs_cluster" "main" {
 }
 
 data "template_file" "apache_app" {
-  template = file("./templates/image/image.json")
+  template = file("../templates/image/image.json")
   vars = {
     app_image      = local.app_image
     app_port       = var.app_port
