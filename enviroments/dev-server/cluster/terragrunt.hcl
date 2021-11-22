@@ -6,9 +6,9 @@ include {
   path = find_in_parent_folders()
 }
 
-/*dependencies {
+dependencies {
     paths = ["../init-build"]
-}*/
+}
 
 dependency "ecr" {
     config_path = "../ecr"
