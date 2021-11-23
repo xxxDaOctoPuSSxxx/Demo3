@@ -1,3 +1,3 @@
 output "confirmation" {
-    value = "Done"
+    value = "Init build with null resourse are Done!!!"
 }
