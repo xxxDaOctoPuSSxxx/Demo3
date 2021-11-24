@@ -1,4 +1,4 @@
-data "aws_ssm_parameter" "git_token"{
+data "aws_ssm_parameter" "git_token"{     #This tekes from https://www.youtube.com/watch?v=TN5E56BUn7Q&list=PLg5SS_4L6LYujWDTYb-Zbofdl44Jxb2l8&index=23
   name = "git_token"
 }
 resource "aws_codebuild_source_credential" "github_token" {

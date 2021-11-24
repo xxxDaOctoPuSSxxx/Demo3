@@ -1,6 +1,3 @@
-/*terraform {
-    source = "../..//deployment" # Terragrunt need (//) to run Terraform correctly
-}*/
 
 locals {
     
@@ -58,7 +55,6 @@ inputs = {
 
     #Variables for CodeBuild
     buildspec_path = "enviroments/dev-server"
-   # github_token = local.github_token
 }
 
 remote_state {
