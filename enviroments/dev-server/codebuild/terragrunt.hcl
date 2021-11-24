@@ -14,7 +14,7 @@ dependency "cluster" {
     config_path = "../cluster"
     mock_outputs = {
         vpc_id = "vpc-000000000000"
-        private_subnet_ids = ["subnet-222222222222", "subnet-333333333333"]
+        private_subnets_id = ["subnet-222222222222", "subnet-333333333333"]
       
   }
 }
@@ -28,6 +28,6 @@ dependency "ecr" {
 
 inputs = {
     vpc_id = dependency.cluster.outputs.vpc_id
-    private_subnet_ids = dependency.cluster.outputs.private_subnet_ids
+    private_subnets_id = dependency.cluster.outputs.private_subnets_id
     ecr_repository_url = dependency.ecr.outputs.ecr_repository_url
 }
