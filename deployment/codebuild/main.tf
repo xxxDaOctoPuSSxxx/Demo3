@@ -1,27 +1,16 @@
-provider "aws" {
-  region = var.region
+data "aws_ssm_parameter" "git_token"{
+  name = "git_token"
 }
-
-
-terraform {
-  backend "s3" {}
-}
-
-resource "aws_ssm_parameter" "secret" {
-  name        = format("s%-s%", var.app_name, "git-token" )
-  description = "The parameter description"
-  type        = "SecureString"
-  value       = var.git_token
-
-  tags = {
-    environment = var.env
-  }
+resource "aws_codebuild_source_credential" "github_token" {
+  auth_type = "PERSONAL_ACCESS_TOKEN"
+  server_type = "GITHUB"
+  token = data.aws_ssm_parameter.git_token.value
 }
 
 resource "aws_codebuild_project" "codebuild" {
-  depends_on = [aws_ssm_parameter.github_token]
-  name = "codebuild-${var.app}-${var.env}-${var.region}"
-  build_timeout = "60"
+  depends_on = [aws_codebuild_source_credential.github_token]
+  name = "codebuild-${var.app_name}-${var.env}-${var.region}"
+  build_timeout = "7"
   service_role = aws_iam_role.role.arn
 
   artifacts {
@@ -35,7 +24,7 @@ resource "aws_codebuild_project" "codebuild" {
     privileged_mode = true
 
   environment_variable {
-    name = "Stage"
+    name = var.env
     value = var.env
   }
 

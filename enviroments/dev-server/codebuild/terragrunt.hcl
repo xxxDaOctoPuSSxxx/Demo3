@@ -1,33 +1,33 @@
 terraform {
-  source = "../../../deployment//codebuild"
+    source = "../../../deployment//codebuild"
 }
 
 include {
-  path = find_in_parent_folders()
+    path = find_in_parent_folders()
 }
 
-locals {
-  secrets = read_terragrunt_config(find_in_parent_folders("secrets.hcl"))
-}
-
-dependency "ecr" {
-  config_path = "../ecr"
-  skip_outputs = true
+dependencies {
+    paths = ["../cluster"]
 }
 
 dependency "cluster" {
-  config_path = "../ecs-cluster"
-  mock_outputs = {
-    vpc_id          = "vpc-000000000000"
-    subnets = ["subnet-00000000000", "subnet-111111111111"]
+    config_path = "../cluster"
+    mock_outputs = {
+        vpc_id = "vpc-000000000000"
+        private_subnet_ids = ["subnet-222222222222", "subnet-333333333333"]
+      
   }
 }
 
-/*inputs = merge(
-  local.secrets.inputs,
-  {
-    vpc_id = dependency.cluster.outputs.vpc_id
-    subnets = dependency.cluster.outputs.subnets
-    build_spec_file = "providers/dev/buildspec.yml"
+dependency "ecr" {
+    config_path = "../ecr"
+    mock_outputs = {
+      ecr_repository_url = "000000000000.dkr.ecr.eu-central-1.amazonaws.com/image"
   }
-)*/
+}
+
+inputs = {
+    vpc_id = dependency.cluster.outputs.vpc_id
+    private_subnet_ids = dependency.cluster.outputs.private_subnet_ids
+    ecr_repository_url = dependency.ecr.outputs.ecr_repository_url
+}

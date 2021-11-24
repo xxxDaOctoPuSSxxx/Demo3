@@ -12,69 +12,57 @@ variable "env" {
     type = string
 }
 
-variable "remote_state_bucket" {
+variable "remoute_state_bucket" {
     type = string
-}
-
-variable "repo_url" {
-  description = "SCM URL for fetching"
-}
-
-variable "build_spec_file" {
-  default = "buildspec.yml"
 }
 
 variable "vpc_id" {
-  type        = string
-  default     = null
-  description = "The VPC ID that CodeBuild uses"
+  description = "VPC id"
 }
 
-variable "subnets" {
-  type        = list(string)
-  default     = null
-  description = "The subnet IDs that include resources used by CodeBuild"
+variable "cidr_blocks"{
+  description = "Cidr block for codebuild security group "
+  default = "0.0.0.0/0"
 }
 
-variable "security_groups" {
-  type        = list(string)
-  default     = null
-  description = "The security group IDs used by CodeBuild to allow access to resources in the VPC"
+variable "buildspec_file" {
+  description = "Name for buildspec file"
+  default = "buildspec.yml"
 }
 
-variable "env_vars" {
-  description = <<EOF
-Pass env vars for codebuild project(in native for codebuild project format)
-Example:
-env_vars = [
-      {
-        "name"  = "SOME_KEY1"
-        "value" = "SOME_VALUE1"
-      },
-      {
-        "name"  = "SOME_KEY2"
-        "value" = "SOME_VALUE2"
-      },
-    ]
-EOF
-
-  default = []
+variable "buildspec_path" {
+  
 }
 
-locals {
-  codebuild_project_name = "${var.app_name}-${var.environment}"
-  description = "Codebuild for ${var.app_name} environment ${var.environment}"
+#variable "github_token" {
+#  description = "GitHub token"
+#}
+
+
+
+
+variable "private_subnet_ids" {
+  description = "Private subnet ids for create codebuild in private subnets"
+  type = set(string)
 }
 
-variable "branch_pattern" {
-    type = string
+variable "pattern_branch" {
+  description = "default pattern for codebuild"
+  default = "^refs/heads"
 }
 
-variable "git_trigger_event" {
-    type = string
+variable "branch_githook" {
+  description = "Variable for pattern that show what branch codebuild will be wait"
+  default = "dev"
 }
 
-variable "github_oauth_token" {
-    type = string
-  description = "Github OAuth token with repo access permissions"
+variable "git_event" {
+  description = "Variable for codebuild webhook that show after what start build"
+  default = "PUSH"
+}
+
+variable "repository_url" {
+  type = string
+  description = "GitHub repository url"
+
 }

@@ -11,10 +11,12 @@ locals {
     account_id = "351279727922"
     image_tag = "1.0" # I must Fix this
     repository_name = "apache-app"
+    repository_url = "https://github.com/xxxDaOctoPuSSxxx/Demo3.git"
     aws_region = "eu-central-1" # I must Fix this
     aws_profile = "default"
     bucket_prefix = "demo3"
     remoute_state_bucket = format("%s-%s-%s", local.app_name, local.env_name, local.aws_region)
+    
 }
 
 inputs = {
@@ -51,7 +53,12 @@ inputs = {
     ecs_task_role_name = "apache-app-task"
     image_tag = local.image_tag
     repository_name = local.repository_name
+    repository_url = local.repository_url
     aws_region = local.aws_region
+
+    #Variables for CodeBuild
+    buildspec_path = "enviroments/dev-server"
+   # github_token = local.github_token
 }
 
 remote_state {
