@@ -34,13 +34,6 @@ variable "buildspec_path" {
   
 }
 
-#variable "github_token" {
-#  description = "GitHub token"
-#}
-
-
-
-
 variable "private_subnets_id" {
   description = "Private subnet ids for create codebuild in private subnets"
   type = set(string)

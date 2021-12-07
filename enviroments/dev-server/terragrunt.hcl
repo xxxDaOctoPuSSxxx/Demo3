@@ -3,23 +3,24 @@ locals {
     
     env_name = "dev-server"
     app_port = "80"
-    app_name = "apache-html"
-    app_count = "2"
+    app_name = "jbot"
+    app_count = "1"
     account_id = "351279727922"
     image_tag = "1.0" # I must Fix this
-    repository_name = "apache-app"
+    repository_name = "jbot"
     repository_url = "https://github.com/xxxDaOctoPuSSxxx/Demo3.git"
-    aws_region = "eu-central-1" # I must Fix this
+    aws_region = "eu-north-1" # I must Fix this
     aws_profile = "default"
-    bucket_prefix = "demo3"
+    bucket_prefix = "jbot-s3"
     remoute_state_bucket = format("%s-%s-%s", local.app_name, local.env_name, local.aws_region)
     
 }
 
 inputs = {
     #Global Variables
+    domainname = "devops-academy-kh.click"
     profile = local.aws_profile # Use .aws credentials
-    region = "eu-central-1" # Set region to deploy
+    region = "eu-north-1" # Set region to deploy
     env = local.env_name # Set neme of enviroment variables added to tags
     owner = "Roman Hryshchenko" # Set owner name in tags
     project = "Soft_Serve_DevOps_Study" # Set project name in tags
@@ -38,7 +39,7 @@ inputs = {
 
     # Variables for Auto scaling group
     asg_min              = "1" # minimum running instances
-    asg_max              = "2" # maximum running instances
+    asg_max              = "4" # maximum running instances
     asg_desired          = "1" #count of starting fargate instances
     instance_type        = "FARGATE" # type of used fargate Instance
 
@@ -46,8 +47,8 @@ inputs = {
     app_count       = local.app_count
     fargate_cpu     = 256
     fargate_memory  = 512
-    ecs_task_execution_role_name = "ApacheEcsTaskExecutionRole"
-    ecs_task_role_name = "apache-app-task"
+    ecs_task_execution_role_name = "JBotEcsTaskExecutionRole"
+    ecs_task_role_name = "jbot-app-task"
     image_tag = local.image_tag
     repository_name = local.repository_name
     repository_url = local.repository_url

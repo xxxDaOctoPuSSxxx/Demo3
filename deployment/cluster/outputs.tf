@@ -47,6 +47,10 @@ output "private_subnets_cidr_blok" {
   description = "CIDR_BLOCK of subnets with private access"
 }
 
-output "APP_URL"{
+output "app_url"{
   value = aws_alb.main.dns_name
+}
+
+output "app_lb_arn" {
+  value = aws_alb.main.arn
 }

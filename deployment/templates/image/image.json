@@ -1,6 +1,6 @@
 [
     {
-      "name": "apache",
+      "name": "jbot",
       "image": "${app_image}",
       "cpu": ${fargate_cpu},
       "memory": ${fargate_memory},
@@ -8,7 +8,7 @@
       "logConfiguration": {
           "logDriver": "awslogs",
           "options": {
-            "awslogs-group": "/ecs/apache",
+            "awslogs-group": "/ecs/jbot",
             "awslogs-region": "${aws_region}",
             "awslogs-stream-prefix": "ecs"
           }

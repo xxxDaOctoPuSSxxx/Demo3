@@ -1,10 +1,43 @@
+# Takes from: (https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener_rule)
+
 resource "aws_alb" "main" {
-  name            = "${var.app_name}-${var.env}-lb"
+  name            = "${var.app_name}-${var.env}-alb"
   subnets         = aws_subnet.public.*.id
   security_groups = [aws_security_group.load_balancer.id]
 }
 
-resource "aws_alb_target_group" "apache" {
+# Listeners
+resource "aws_alb_listener" "https_front_end" {
+  load_balancer_arn = aws_alb.main.id
+  port              = 443
+  protocol          = "HTTPS"
+
+  default_action {
+    target_group_arn = aws_alb_target_group.jbot.id
+    type             = "forward"
+  }
+  
+    certificate_arn = aws_acm_certificate_validation.jbot.certificate_arn
+  
+}
+resource "aws_alb_listener" "http_front_end" {
+    load_balancer_arn = aws_alb.main.id
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+        type             = "redirect"
+      redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+  }
+ }
+}
+
+
+
+resource "aws_alb_target_group" "jbot" {
   name        = "${var.app_name}-${var.env}-tg"
   port        = 80
   protocol    = "HTTP"
@@ -22,9 +55,4 @@ resource "aws_alb_target_group" "apache" {
   }
 }
 
-# Redirect all traffic from the ALB to the target group
-resource "aws_alb_listener" "front_end" {
-  load_balancer_arn = aws_alb.main.id
-  port              = var.app_port
-  protocol          = "HTTP"
 
