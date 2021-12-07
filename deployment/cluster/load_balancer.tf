@@ -28,8 +28,3 @@ resource "aws_alb_listener" "front_end" {
   port              = var.app_port
   protocol          = "HTTP"
 
-  default_action {
-    target_group_arn = aws_alb_target_group.apache.id
-    type             = "forward"
-  }
-}
