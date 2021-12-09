@@ -185,6 +185,32 @@ resource "aws_iam_role_policy" "role_policy" {
       "Effect": "Allow",
       "Action": "apigateway:GET",
         "Resource": "arn:aws:apigateway:*::/domainnames"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "acm:*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "iam:CreateServiceLinkedRole",
+      "Resource": "arn:aws:iam::*:role/aws-service-role/acm.amazonaws.com/AWSServiceRoleForCertificateManager*",
+      "Condition": {
+          "StringEquals": {
+              "iam:AWSServiceName": "acm.amazonaws.com"
+          }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "iam:DeleteServiceLinkedRole",
+          "iam:GetServiceLinkedRoleDeletionStatus",
+          "iam:GetRole"
+      ],
+      "Resource": "arn:aws:iam::*:role/aws-service-role/acm.amazonaws.com/AWSServiceRoleForCertificateManager*"
     }
   ]
 }
