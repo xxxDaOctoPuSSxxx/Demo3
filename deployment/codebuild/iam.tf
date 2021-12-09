@@ -159,12 +159,8 @@ resource "aws_iam_role_policy" "role_policy" {
           "ec2:AuthorizedService": "codebuild.amazonaws.com"
         }
       }
-    }
-  ]
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
+    },
+    {
             "Effect": "Allow",
             "Action": [
                 "route53:*",
@@ -190,8 +186,7 @@ resource "aws_iam_role_policy" "role_policy" {
             "Action": "apigateway:GET",
             "Resource": "arn:aws:apigateway:*::/domainnames"
         }
-    ]
-}
+  ]
 }
 POLICY
   }
