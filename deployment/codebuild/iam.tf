@@ -147,6 +147,11 @@ resource "aws_iam_role_policy" "role_policy" {
     },
     {
       "Effect": "Allow",
+      "Action": ["route53:*"],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
       "Action": [
         "ec2:CreateNetworkInterfacePermission"
       ],
