@@ -58,6 +58,9 @@ variable "aws_region" {
 
 ################################################################
 
-variable "domainname"{
+variable "domain_name"{
+  
+}
+variable "sub_domain_name"{
   
 }

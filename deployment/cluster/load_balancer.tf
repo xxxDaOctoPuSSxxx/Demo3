@@ -11,17 +11,19 @@ resource "aws_alb_listener" "https_front_end" {
   load_balancer_arn = aws_alb.main.id
   port              = 443
   protocol          = "HTTPS"
-
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = aws_acm_certificate_validation.jbot.certificate_arn
   default_action {
     target_group_arn = aws_alb_target_group.jbot.id
     type             = "forward"
   }
   
-    certificate_arn = aws_acm_certificate_validation.jbot.certificate_arn
+    
   
 }
 resource "aws_alb_listener" "http_front_end" {
-    load_balancer_arn = aws_alb.main.id
+  
+  load_balancer_arn = aws_alb.main.id
   port              = "80"
   protocol          = "HTTP"
 

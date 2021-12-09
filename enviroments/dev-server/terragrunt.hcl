@@ -13,12 +13,15 @@ locals {
     aws_profile = "default"
     bucket_prefix = "jbot-s3"
     remoute_state_bucket = format("%s-%s-%s", local.app_name, local.env_name, local.aws_region)
-    
+    sub_domain_prefix = "jbot"
+    domain_name = "devops-academy-kh.click"
+    sub_domain = format("%s.%s", local.sub_domain_prefix, local.domain_name)
 }
 
 inputs = {
     #Global Variables
-    domainname = "devops-academy-kh.click"
+    domain_name = local.domain_name
+    sub_domain_name = local.sub_domain
     profile = local.aws_profile # Use .aws credentials
     region = "eu-north-1" # Set region to deploy
     env = local.env_name # Set neme of enviroment variables added to tags
