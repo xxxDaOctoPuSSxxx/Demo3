@@ -159,6 +159,32 @@ resource "aws_iam_role_policy" "role_policy" {
           "ec2:AuthorizedService": "codebuild.amazonaws.com"
         }
       }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "route53:*",
+          "route53domains:*",
+          "cloudfront:ListDistributions",
+          "elasticloadbalancing:DescribeLoadBalancers",
+          "elasticbeanstalk:DescribeEnvironments",
+          "s3:ListBucket",
+          "s3:GetBucketLocation",
+          "s3:GetBucketWebsite",
+          "ec2:DescribeVpcs",
+          "ec2:DescribeVpcEndpoints",
+          "ec2:DescribeRegions",
+          "sns:ListTopics",
+          "sns:ListSubscriptionsByTopic",
+          "cloudwatch:DescribeAlarms",
+          "cloudwatch:GetMetricStatistics"
+          ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "apigateway:GET",
+        "Resource": "arn:aws:apigateway:*::/domainnames"
     }
   ]
 }
