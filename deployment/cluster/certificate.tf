@@ -1,7 +1,7 @@
 
 resource "aws_acm_certificate" "jbot" {
   domain_name       = "${var.domain_name}"
-  subject_alternative_names = ["${var.sub_domain_name}"]
+  subject_alternative_names = ["${var.sub_domain_name}", "www.${var.domain_name}"]
   validation_method = "DNS"
 }
 
@@ -19,7 +19,8 @@ resource "aws_route53_record" "jbot" {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
-      zone_id = dvo.domain_name == "${var.sub_domain_name}" ? data.aws_route53_zone.jbot.zone_id : data.aws_route53_zone.jbot.zone_id
+      zone_id = dvo.domain_name == "${var.sub_domain_name}" ? data.aws_route53_zone.jbot.zone_id : data.aws_route53_zone.jbot.zone_id 
+      zone_id = dvo.domain_name == "www.${var.domain_name}" ? data.aws_route53_zone.jbot.zone_id : data.aws_route53_zone.jbot.zone_id
     }
   }
 
