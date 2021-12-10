@@ -13,7 +13,7 @@ locals {
     aws_profile = "default"
     bucket_prefix = "jbot-s3"
     remoute_state_bucket = format("%s-%s-%s", local.app_name, local.env_name, local.aws_region)
-    sub_domain_prefix = "softserve"
+    sub_domain_prefix = "jbot"
     domain_name = "devops-academy-kh.click"
     sub_domain = format("%s.%s", local.sub_domain_prefix, local.domain_name)
 }
